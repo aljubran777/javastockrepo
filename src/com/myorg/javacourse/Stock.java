@@ -5,10 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Stock {
+	
+	public static final int BUY = 0;
+	public static final int SELL = 1;
+	public static final int REMOVE = 2;
+	public static final int HOLD = 3;
 
 	private String symbol;
 	private float ask,bid;
 	private java.util.Date date;
+	int recommendation;
+	int stockQuantity;
 	
 	public Stock(String symbol, float ask,float bid,Date date)
 	{
@@ -51,6 +58,24 @@ public class Stock {
 		this.date = date;
 	}
 	
+	
+	
+	public int getRecommendation() {
+		return recommendation;
+	}
+
+	public void setRecommendation(int recommendation) {
+		this.recommendation = recommendation;
+	}
+
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
+
 	public String getHtmlDescription(){
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		String dateStr = df.format(getDate());
