@@ -1,9 +1,9 @@
-package com.myorg.javacourse;
+package com.myorg.javacourse.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/* this class represents a stock of stocks*/
 public class Stock {
 	
 	public static final int BUY = 0;
@@ -23,7 +23,18 @@ public class Stock {
 		this.ask=ask;
 		this.bid=bid;
 		this.date=date;
+		this.recommendation=0;
+		this.stockQuantity=0;
 		
+	}
+	/* C'tors to Stock*/
+	public Stock (Stock stock){
+		this.setSymbol(new String (stock.getSymbol()));
+		this.setAsk(stock.getAsk());
+		this.setBid(stock.getBid());
+		this.date=new Date(stock.getDate().getTime());
+		this.recommendation=stock.getRecommendation();
+		this.stockQuantity=stock.getStockQuantity();
 	}
 
 	public String getSymbol() {

@@ -3,9 +3,9 @@ package com.myorg.javacourse.service;
 import java.util.Date;
 import java.util.Calendar;
 
-import com.myorg.javacourse.Stock;
 import com.myorg.javacourse.model.Portfolio;
-
+import com.myorg.javacourse.model.Stock;
+/* this class is a portfolio manager , it will execute methods of portfolio*/
 public class PortfolioManager {
 	
 	public Portfolio getPortfolio()

@@ -1,7 +1,6 @@
 package com.myorg.javacourse.model;
 
-import com.myorg.javacourse.Stock;
-
+/* this class is a Portfolio of stocks , maximum of stocks in portfolio is 5*/
 public class Portfolio {
 
 	private static final int MAX_PORTFOLIO_SIZE = 5 ;
@@ -16,6 +15,18 @@ public class Portfolio {
 		this.portfolioSize=0;
 	}
 	
+	/* C'tors to porfolio*/
+	public Portfolio(Portfolio portfolio){
+		this.setTitle(new String (portfolio.getTitle()));
+		
+		Stock[] coppied=portfolio.getStocks();
+		
+		for(int i=0;i<coppied.length;i++)
+			this.stocks[i]=new Stock(coppied[i]);
+		
+		this.setPortfolioSize(portfolio.getPortfolioSize());
+	}
+	/* method that adds stock to portfolio's array*/
 	public void addstock(Stock stock)
 	{
 		if(portfolioSize<MAX_PORTFOLIO_SIZE && stock!=null)
@@ -31,6 +42,23 @@ public class Portfolio {
 	public Stock[] getStocks(Stock stocks[]){
 		return stocks;
 	}
+	
+	/* method that removes a stock from portfolio with the same symbol as received */ 
+    public void removeStock(String stockName){
+		
+		for(int i = 0; i< MAX_PORTFOLIO_SIZE; i++){
+			if((this.stocks[i].getSymbol().equals(stockName) == true && stocks[i] != null)){
+				if (portfolioSize != 1){
+				stocks[i] = stocks[portfolioSize-1];
+				}else  if (portfolioSize == 1){
+					stocks[i]=null;
+				}
+				portfolioSize--;
+				System.out.println("Stock was deleted as requested");
+			}
+			
+		}
+    }
 	
 	public String getHtmlString() 
 	{
