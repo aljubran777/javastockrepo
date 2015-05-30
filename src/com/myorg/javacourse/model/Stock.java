@@ -1,97 +1,102 @@
 package com.myorg.javacourse.model;
 
-import java.text.DateFormat;
+import java.text.*;
+import java.util.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.algo.model.StockInterface;
 
 import com.myorg.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
-/* this class represents a stock of stocks*/
-public class Stock {
+/**
+ * This class represents a Stock of Stocks.
+ */
+public class Stock implements StockInterface{
+
 
 	private String symbol;
-	private float ask,bid;
-	private java.util.Date date;
+	private float bid, ask;
+	private Date date;
 	private ALGO_RECOMMENDATION recommendation;
-	int stockQuantity;
-	
-	public Stock(String symbol, float ask,float bid,Date date)
-	{
-		this.symbol=symbol;
-		this.ask=ask;
-		this.bid=bid;
-		this.date=date;
+	private int stockQuantity;
+	transient private SimpleDateFormat formDate = new SimpleDateFormat("dd/MM/yyyy");
+
+	/**
+	 * C'tor of Stock.
+	 */
+	public Stock (){
+		this.symbol = new String();
+		this.bid = 0;
+		this.ask = 0;
+		this.date = new Date();
 		this.recommendation = ALGO_RECOMMENDATION.HOLD;
-		this.stockQuantity=0;
-		
+		this.stockQuantity = 0;				
 	}
-	/* C'tors to Stock*/
-	public Stock (Stock stock){
-		this.setSymbol(new String (stock.getSymbol()));
-		this.setAsk(stock.getAsk());
-		this.setBid(stock.getBid());
-		this.date=new Date(stock.getDate().getTime());
-		this.recommendation=stock.getRecommendation();
-		this.stockQuantity=stock.getStockQuantity();
+	/**
+	 * C'tor of Stock.
+	 */
+	public Stock (String newSymbol, float newBid, float newAsk, Date date){
+		this.symbol = newSymbol;
+		this.bid = newBid;
+		this.ask = newAsk;
+		this.date = date;
+		this.recommendation = ALGO_RECOMMENDATION.HOLD;
+		this.stockQuantity = 0;				
 	}
+
+	/**
+	 * Copy C'tor of Stock class.
+	 */
+	public Stock (Stock oldStock)
+	{
+		this(oldStock.getSymbol(),oldStock.getBid(),oldStock.getAsk(),new Date(oldStock.getDate().getTime()));
+		this.recommendation = oldStock.getRecommendation();
+		this.stockQuantity = oldStock.getStockQuantity();
+	}
+
+	/**
+	 * Method uses the stock's details.
+	 * @return string with stock's details in HTML code.
+	 */
+	public String getHtmlDescription(){
+		return "<b>Stock symbol: </b>"+this.getSymbol()+" <b>Ask: </b>"+this.getAsk()+"<b> Bid: </b>"+this.getBid()+
+				"<b> Date: </b>"+this.formDate.format(this.getDate())+" <b>Quantity: </b>"+this.getStockQuantity();
+	}
+
 	public ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
 	}
-
-	public String getSymbol() {
-		return symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	public float getAsk() {
-		return ask;
-	}
-
-	public void setAsk(float ask) {
-		this.ask = ask;
-	}
-
-	public float getBid() {
-		return bid;
-	}
-
-	public void setBid(float bid) {
-		this.bid = bid;
-	}
-
-	public java.util.Date getDate() {
-		return date;
-	}
-
-	public void setDate(java.util.Date date) {
-		this.date = date;
-	}
-
 	public int getStockQuantity() {
 		return stockQuantity;
 	}
-
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
-	
-
-	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
-		this.recommendation = recommendation;
+	public String getSymbol() {
+		return this.symbol;
 	}
-public String getHtmlDescription(){
-		
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-		String dateStr = df.format(getDate());
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+	public float getBid() {
+		return this.bid;
+	}
+	public void setBid(float bid) {
+		this.bid = bid;
+	}
+	public float getAsk() {
+		return this.ask;
+	}
+	public void setAsk(float ask) {
+		this.ask = ask;
+	}
+	public Date getDate() {
+		return this.date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setRecommendation(ALGO_RECOMMENDATION valueOf) {
+		this.recommendation = valueOf;
 
-		String ret= "<br>Stock symbol: </b>"+getSymbol()+" <b> ask: </b>"+getAsk()+"<b> bid: </b>"+getBid()+"<b> quantity: </b>"+getStockQuantity()+
-				"<b> date: </b>"+ dateStr;
-		return ret;
-	
 	}
 
-	
 }
